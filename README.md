@@ -8,7 +8,7 @@
 - press `i` in the terminal to open the app in local simulator or scan the barcode created to open the application in your Android or iOS mobile phone
 
 ### Video Demonstration of Deployment:
-- https://youtu.be/Bcr9pjFw3yY
+- [https://youtu.be/6EVBkiTt23I](https://youtu.be/6EVBkiTt23I)
 
 ### Video Demonstration of SciKick:
 - https://youtu.be/Coy6mCdztoI
