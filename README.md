@@ -7,9 +7,15 @@
 - `yarn start` to start the application server
 - press `i` in the terminal to open the app in local simulator or scan the barcode created to open the application in your Android or iOS mobile phone
 
+### Video Demonstration of Deployment:
+- https://youtu.be/Bcr9pjFw3yY
+
+### Video Demonstration of SciKick:
+- https://youtu.be/Coy6mCdztoI
+
 ### For testing:
 
-Amanda's Psychology account details:
+Amanda's Psychiatrist account details:
 
 - account name: `test@test.com`
 - account password: `test1234`
