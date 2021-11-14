@@ -14,7 +14,7 @@ export default function LandingScreen({ navigation }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const _renderItem = ({ item, index }) => {
     return (
-      <View style={{ height: 300, backgroundColor: "transparent" }}>
+      <View style={{ height: 325, backgroundColor: "transparent" }}>
         <Text style={styles.carouselTitle}>{item.title}</Text>
         {item.image}
       </View>
@@ -45,38 +45,35 @@ export default function LandingScreen({ navigation }) {
   };
   const carouselItems = [
     {
-      title:
-        "Get inspiration, tips and exercises from your personalised dashboard",
+      title: "Elevate your life with Cathay",
       image: (
         <Image
           resizeMode="contain"
           style={styles.carouselImage}
           alt="1"
-          source={require("../assets/images/mindfulhack_login_1.png")}
+          source={require("../assets/images/LandingGraph1.png")}
         />
       ),
     },
     {
-      title:
-        "Chat with out consultants and psychiatrists to get personalised advice",
+      title: "Search for partners and\nredeem rewards easily",
       image: (
         <Image
           resizeMode="contain"
           style={styles.carouselImage}
           alt="2"
-          source={require("../assets/images/mindfulhack_login_2.png")}
+          source={require("../assets/images/LandingGraph2.png")}
         />
       ),
     },
     {
-      title:
-        "Wrtie down your thoughts & moments in your own journal anytime, anywhere",
+      title: "Dine and shop with miles effortlessly",
       image: (
         <Image
           resizeMode="contain"
           style={styles.carouselImage}
           alt="3"
-          source={require("../assets/images/mindfulhack_login_3.png")}
+          source={require("../assets/images/LandingGraph3.png")}
         />
       ),
     },

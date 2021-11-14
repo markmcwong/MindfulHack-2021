@@ -8,8 +8,10 @@ import {
   Divider,
   Pressable,
   Image,
+  Modal,
+  Button,
 } from "native-base";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { backgroundColor } from "styled-system";
 import { Dimensions, StyleSheet } from "react-native";
@@ -17,10 +19,10 @@ import MapView from "react-native-maps";
 
 const examples = [
   "The Continental",
-  "The Continental",
-  "The Continental",
-  "The Continental",
-  "The Continental",
+  "DEF Shop",
+  "GHI Shop",
+  "JKL Shop",
+  "MNO Shop",
 ];
 
 const entertainmentExamples = [
@@ -65,8 +67,34 @@ const explorationImages = [
 
 export default function OfferScreen({ navigation, route }) {
   const [index, setIndex] = React.useState(0);
+  const [open, setOpen] = useState(true);
+
+  const demo = () => {
+    return (
+      <Modal isOpen={open} onClose={() => setOpen(false)} mt={12}>
+        <Modal.Content maxWidth="400px" style={styles.top}>
+          <Modal.CloseButton />
+          <Modal.Body>
+            <HStack space={4} pr={5}>
+              <Image source={require("../assets/images/Cathay_Pacific.png")} />
+              <VStack space={1}>
+                <Text fontFamily="DMSans_700Bold" fontSize="15">
+                  Earn Extra Miles now!
+                </Text>
+                <Text fontFamily="DMSans_400Regular" fontSize="12">
+                  {"Spend 1 HKD and earn 4 Asia Miles\nat The Continental!"}
+                </Text>
+              </VStack>
+            </HStack>
+          </Modal.Body>
+        </Modal.Content>
+      </Modal>
+    );
+  };
+
   return (
     <SafeAreaView backgroundColor="#00595E" flex={1}>
+      {demo()}
       <Tabs
         variant="soft-rounded"
         onChange={(index) => setIndex(index)}
@@ -274,5 +302,10 @@ const styles = StyleSheet.create({
   map: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
+  },
+  top: {
+    marginBottom: "auto",
+    marginTop: 0,
+    borderRadius: 25,
   },
 });

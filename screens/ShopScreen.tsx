@@ -8,6 +8,7 @@ import {
   Text,
   VStack,
   View,
+  Pressable,
 } from "native-base";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -104,35 +105,46 @@ export default function ShopScreen({ navigation, route }) {
           </HStack>
           <ScrollView horizontal={true}>
             {products.map((x, index) => (
-              <VStack
-                backgroundColor="white"
-                shadow={3}
-                borderRadius={15}
-                p={3}
-                space={1}
-                m={2}
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("ProductDetailScreen", {
+                    name: x.name,
+                    image: x.image,
+                    price: x.price,
+                    miles: x.miles,
+                  })
+                }
               >
-                <Image source={x.image} w="180" resizeMode="contain" />
-                <Text fontSize={12} fontFamily="DMSans_400Regular">
-                  {x.brand}
-                </Text>
-                <Text fontSize={14} fontFamily="DMSans_700Bold">
-                  {x.name}
-                </Text>
-                <HStack alignItems="center" space={1}>
-                  <Text fontSize="12" fontFamily="DMSans_400Regular">
-                    From {x.price} /
+                <VStack
+                  backgroundColor="white"
+                  shadow={3}
+                  borderRadius={15}
+                  p={3}
+                  space={1}
+                  m={2}
+                >
+                  <Image source={x.image} w="180" resizeMode="contain" />
+                  <Text fontSize={12} fontFamily="DMSans_400Regular">
+                    {x.brand}
                   </Text>
-                  <Image
-                    source={require("../assets/images/asia_miles.png")}
-                    w="15"
-                    h="15"
-                  />
-                  <Text fontSize="12" fontFamily="DMSans_400Regular">
-                    {x.miles}
+                  <Text fontSize={14} fontFamily="DMSans_700Bold">
+                    {x.name}
                   </Text>
-                </HStack>
-              </VStack>
+                  <HStack alignItems="center" space={1}>
+                    <Text fontSize="12" fontFamily="DMSans_400Regular">
+                      From {x.price} /
+                    </Text>
+                    <Image
+                      source={require("../assets/images/asia_miles.png")}
+                      w="15"
+                      h="15"
+                    />
+                    <Text fontSize="12" fontFamily="DMSans_400Regular">
+                      {x.miles}
+                    </Text>
+                  </HStack>
+                </VStack>
+              </Pressable>
             ))}
           </ScrollView>
           <HStack justifyContent="space-between" alignItems="center" pr={5}>

@@ -176,15 +176,25 @@ const Membership = (props: any) => {
           }}
         >
           <VStack marginTop={8} marginBottom={20}>
-            <Text
-              style={{
-                color: "#00595E",
-                fontSize: 36,
-                fontFamily: "DMSans_700Bold",
-              }}
-            >
-              Membership
-            </Text>
+            <HStack alignItems="center" pl={0} ml={0}>
+              <Icon
+                color="#00595E"
+                as={MaterialCommunityIcons}
+                name="arrow-left"
+                size={10}
+                mr={2}
+                onPress={() => props.navigation.goBack()}
+              />
+              <Text
+                style={{
+                  color: "#00595E",
+                  fontSize: 36,
+                  fontFamily: "DMSans_700Bold",
+                }}
+              >
+                Membership
+              </Text>
+            </HStack>
             <Text
               style={{
                 marginTop: 12,
@@ -230,13 +240,12 @@ const Membership = (props: any) => {
             {pagination()}
 
             <Carousel
+              removeClippedSubviews={false}
               renderItem={_renderItem}
               data={carouselItems}
               sliderWidth={350}
               itemWidth={350}
-              layout={"default"}
-              containerCustomStyle={{ flex: 1 }}
-              slideStyle={{ flex: 1 }}
+              // layout={"default"}
               onSnapToItem={(index) => setActiveIndex(index)}
             />
           </VStack>

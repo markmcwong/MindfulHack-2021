@@ -10,6 +10,7 @@ import {
   Image,
   Divider,
   Button,
+  Pressable,
 } from "native-base";
 import * as React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -32,6 +33,7 @@ import firebase from "firebase";
 import "firebase/firestore";
 import { getUserDetails } from "../services/firestore";
 import { backgroundColor } from "styled-system";
+import Navigation from "../navigation";
 
 const User = {
   name: "Robe Jobs",
@@ -103,6 +105,14 @@ const MyAccount = (props: any) => {
 
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
+      <IconButton
+        icon={<Icon as={AntDesign} name="logout" size={5}></Icon>}
+        position="absolute"
+        top="55px"
+        right="15px"
+        zIndex={3}
+        onPress={() => logout()}
+      ></IconButton>
       <VStack
         alignItems="center"
         width={Dimensions.get("window").width}
@@ -332,33 +342,43 @@ const MyAccount = (props: any) => {
               />
             </HStack>
           </HStack>
-          <HStack
-            padding="3%"
-            style={{
-              width: "100%",
-              borderBottomColor: "#DADADA",
-              borderBottomWidth: 1,
-            }}
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <HStack>
-              <Icon as={Ionicons} name="card-outline" size={5} mr={6} ml={2} />
+          <Pressable onPress={() => props.navigation.navigate("Membership")}>
+            <HStack
+              padding="3%"
+              style={{
+                width: "100%",
+                borderBottomColor: "#DADADA",
+                borderBottomWidth: 1,
+              }}
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <HStack>
+                <Icon
+                  as={Ionicons}
+                  name="card-outline"
+                  size={5}
+                  mr={6}
+                  ml={2}
+                />
 
-              <Text style={{ color: "#443E3E", fontFamily: "DMSans_700Bold" }}>
-                Membership
-              </Text>
+                <Text
+                  style={{ color: "#443E3E", fontFamily: "DMSans_700Bold" }}
+                >
+                  Membership
+                </Text>
+              </HStack>
+              <Icon
+                as={Ionicons}
+                name="arrow-forward"
+                size={5}
+                mr={2}
+                ml={2}
+                textAlign="right"
+              />
             </HStack>
+          </Pressable>
 
-            <Icon
-              as={Ionicons}
-              name="arrow-forward"
-              size={5}
-              mr={2}
-              ml={2}
-              textAlign="right"
-            />
-          </HStack>
           <HStack
             padding="3%"
             style={{

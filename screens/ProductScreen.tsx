@@ -7,6 +7,7 @@ import {
   Icon,
   IconButton,
   Image,
+  Pressable,
   ScrollView,
   Text,
   VStack,
@@ -147,50 +148,64 @@ export default function ProductScreen({ navigation, route }) {
         <HStack flexWrap="wrap" space={4}>
           {items.map((x, index) => {
             return (
-              <VStack
-                space={1.5}
+              <Pressable
+                width="45%"
+                mb={4}
+                borderRadius={10}
                 shadow={2}
                 backgroundColor="white"
                 p={3}
-                borderRadius={10}
-                width="45%"
-                mb={4}
                 alignItems="center"
+                onPress={() =>
+                  navigation.navigate("ProductDetailScreen", {
+                    name: x.name,
+                    image: x.image,
+                    price: x.price,
+                    miles: x.miles,
+                  })
+                }
               >
-                <Image
-                  w="150"
-                  h="150"
-                  resizeMode="contain"
-                  source={x.image}
-                ></Image>
-                <Text
-                  w="100%"
-                  textAlign="left"
-                  pl={1}
-                  fontSize={14}
-                  color="#00595e"
-                  fontFamily="DMSans_700Bold"
+                <VStack
+                  space={1.5}
+                  // width="45%"
+                  // mb={4}
+                  // alignItems="center"
                 >
-                  {x.name}
-                </Text>
-                <HStack
-                  alignItems="center"
-                  justifyContent="flex-start"
-                  space={1}
-                >
-                  <Text fontSize="12" fontFamily="DMSans_400Regular">
-                    From {x.price} /
-                  </Text>
                   <Image
-                    source={require("../assets/images/asia_miles.png")}
-                    w="15"
-                    h="15"
-                  />
-                  <Text fontSize="12" fontFamily="DMSans_400Regular">
-                    {x.miles}
+                    w="150"
+                    h="150"
+                    resizeMode="contain"
+                    source={x.image}
+                  ></Image>
+                  <Text
+                    w="100%"
+                    textAlign="left"
+                    pl={0}
+                    fontSize={14}
+                    color="#00595e"
+                    fontFamily="DMSans_700Bold"
+                  >
+                    {x.name}
                   </Text>
-                </HStack>
-              </VStack>
+                  <HStack
+                    alignItems="center"
+                    justifyContent="flex-start"
+                    space={1}
+                  >
+                    <Text fontSize="12" fontFamily="DMSans_400Regular">
+                      From {x.price} /
+                    </Text>
+                    <Image
+                      source={require("../assets/images/asia_miles.png")}
+                      w="15"
+                      h="15"
+                    />
+                    <Text fontSize="12" fontFamily="DMSans_400Regular">
+                      {x.miles}
+                    </Text>
+                  </HStack>
+                </VStack>
+              </Pressable>
             );
           })}
         </HStack>

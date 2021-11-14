@@ -9,10 +9,11 @@ import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 import { HStack, Icon, Image, VStack } from "native-base";
 import { Text, View } from "../components/Themed";
 
-import { ChatListScreen } from "../screens/ChatListScreen";
 import Consultants from "../screens/Consultants";
 import { Ionicons } from "@expo/vector-icons";
 import OfferStack from "./OfferNavigator";
+import SettingsStack from "./SettingsNavigator";
+
 import ProductScreen from "../screens/ProductScreen";
 import ShopScreen from "../screens/ShopScreen";
 import TabOneScreen from "../screens/TabOneScreen";
@@ -24,6 +25,7 @@ import store from "../state/store";
 import { useSelector } from "react-redux";
 import MyAccount from "../screens/MyAccount";
 import Membership from "../screens/Membership";
+import ProductStack from "./ProductNavigator";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -34,7 +36,7 @@ export default function BottomTabNavigator() {
       initialRouteName="TabOne"
       tabBar={(props) => <MyTabBar {...props} />}
       tabBarOptions={{
-        activeTintColor: "#464646",
+        activeTintColor: "#00595e",
         // "#EFB556",
         inactiveTintColor: "#c2c2c2",
         safeAreaInsets: { bottom: 10 },
@@ -56,7 +58,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="TabFour"
-        component={ShopScreen}
+        component={ProductStack}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="basket-outline" color={color} />
@@ -72,15 +74,15 @@ export default function BottomTabNavigator() {
           ),
         }}
       />
-      {/* <BottomTab.Screen
+      <BottomTab.Screen
         name="TabFive"
-        component={Membership}
+        component={SettingsStack}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="person-outline" color={color} />
           ),
         }}
-      /> */}
+      />
     </BottomTab.Navigator>
   );
 }
@@ -154,7 +156,7 @@ function MyTabBar({ state, descriptors, navigation }) {
             style={{ flex: 1, alignItems: "center" }}
           >
             <Icon
-              color={isFocused ? "#464646" : "#c2c2c2"}
+              color={isFocused ? "#00595e" : "#c2c2c2"}
               as={options.tabBarIcon}
             ></Icon>
           </TouchableOpacity>
@@ -209,7 +211,7 @@ function TabOneNavigator() {
       />
       <TabOneStack.Screen
         name="TabTwoScreen"
-        component={ProductScreen}
+        component={ProductStack}
         options={{
           header: () => (
             <View style={{ backgroundColor: "#57B894" }}>

@@ -69,7 +69,7 @@ const card = () => {
               1,800
             </Text>
             <Text fontSize="16" color="#00595E" fontWeight="500">
-              Chan Tai Man
+              Chan Mo Ming
             </Text>
           </VStack>
           <Image
@@ -104,12 +104,40 @@ const TabOneScreen = (props: any) => {
     require("../assets/images/CathayMerchandise.png"),
   ];
 
+  const suggestedProducts = [
+    <Image
+      source={require("../assets/images/product.png")}
+      // w="100"
+      h="100"
+      resizeMode="contain"
+    />,
+    <Image
+      source={require("../assets/images/electronics_blue.png")}
+      resizeMode="contain"
+      // w="100"
+      h="100"
+    />,
+    <Image
+      source={require("../assets/images/electronics_21.png")}
+      resizeMode="contain"
+      // w="100"
+      h="100"
+    />,
+  ];
+
+  const suggestedProductCategories = [
+    "Women's Clothes",
+    "Electronics",
+    "Electronics",
+  ];
+  const suggestedProductColours = ["#FFB8B8", "#7AB4E8", "#7AB4E8"];
   return (
     <View
       style={{
         flex: 1,
         display: "flex",
         height: "90%",
+        backgroundColor: "white",
       }}
       mb={16}
     >
@@ -241,7 +269,7 @@ const TabOneScreen = (props: any) => {
                       p={2.5}
                       mr={2.5}
                     >
-                      <Image source={require("../assets/images/product.png")} />
+                      {suggestedProducts[index % suggestedProducts.length]}
                       <VStack
                         px={0}
                         style={{ marginLeft: "-15%" }}
@@ -278,13 +306,21 @@ const TabOneScreen = (props: any) => {
                           <Text fontSize="12">10000</Text>
                         </HStack>
                         <Badge
-                          backgroundColor="#FFB8B8"
+                          backgroundColor={
+                            suggestedProductColours[
+                              index % suggestedProducts.length
+                            ]
+                          }
                           borderRadius={10}
                           px={2}
                           py={0.5}
                         >
                           <Text color="#FFF" fontSize={10}>
-                            Women's Clothes
+                            {
+                              suggestedProductCategories[
+                                index % suggestedProducts.length
+                              ]
+                            }
                           </Text>
                         </Badge>
                       </VStack>
@@ -306,7 +342,9 @@ const TabOneScreen = (props: any) => {
                     return (
                       <Pressable
                         onPress={() =>
-                          props.navigation.navigate("TabTwoScreen")
+                          props.navigation.navigate("TabTwoScreen", {
+                            screen: "ProductScreen",
+                          })
                         }
                         width="29%"
                         height="100"

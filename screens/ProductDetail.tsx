@@ -43,8 +43,10 @@ export default function ProductDetailScreen({ navigation, route }) {
   const [userDetails, setUserDetails] = useState(null);
   const shouldShowFab = useSelector((state: any) => state.fab);
   const [showModal, setShowModal] = useState(false);
-
   const modal = () => {
+    const [ratio, setRatio] = useState(0);
+    const [miles, setMiles] = useState(700);
+
     const [value, setValue] = React.useState("one");
     return (
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
@@ -74,13 +76,18 @@ export default function ProductDetailScreen({ navigation, route }) {
                 <HStack>
                   <Text color="#00595E">HKD</Text>
                   <Slider
-                    defaultValue={70}
+                    defaultValue={0}
                     minValue={0}
-                    maxValue={100}
+                    maxValue={1}
                     accessibilityLabel="hello world"
-                    step={10}
+                    step={0.1}
                     flex={1}
                     mx={2}
+                    value={ratio}
+                    onChange={(e) => {
+                      console.log(e);
+                      setRatio(e);
+                    }}
                   >
                     <Slider.Track>
                       <Slider.FilledTrack />
@@ -97,10 +104,21 @@ export default function ProductDetailScreen({ navigation, route }) {
                   />
                 </HStack>
                 <HStack justifyContent="space-between" width="80%">
-                  <Text color="#00595E">HKD 3,500</Text>
+                  <Text color="#00595E">
+                    HKD{" "}
+                    {(
+                      parseInt(
+                        route.params.price.match(/\d/g).join("")
+                      ).toFixed(0) *
+                      (1 - ratio)
+                    )
+                      .toFixed(0)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </Text>
                   <Text color="#00595E">+</Text>
 
-                  <HStack>
+                  <HStack alignItems="center">
                     <Image
                       // flex={1}
                       resizeMode="contain"
@@ -109,27 +127,44 @@ export default function ProductDetailScreen({ navigation, route }) {
                       // source={route.params.image}
                       source={require("../assets/images/asia_miles.png")}
                     />
-                    <Text color="#00595E">124,975</Text>
+                    <Text color="#00595E">
+                      {" " +
+                        (
+                          parseInt(
+                            route.params.miles.match(/\d/g).join("")
+                          ).toFixed(0) * ratio
+                        )
+                          .toFixed(0)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </Text>
                   </HStack>
                 </HStack>
               </VStack>
             )}
           </Modal.Body>
-          <Modal.Footer>
-            <Button.Group variant="ghost" space={2}>
-              <IconButton
-                backgroundColor="#00595E"
-                borderRadius="30"
-                icon={
-                  <Icon
-                    as={AntDesign}
-                    name="arrowright"
-                    color="#FFF"
-                    size={4}
-                  />
-                }
-              ></IconButton>
-            </Button.Group>
+          <Modal.Footer py={5} pr={5}>
+            <HStack
+              width="100%"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Text>{"Miles returned:\n" + miles}</Text>
+              <Button.Group variant="ghost" space={2}>
+                <IconButton
+                  backgroundColor="#00595E"
+                  borderRadius="30"
+                  icon={
+                    <Icon
+                      as={AntDesign}
+                      name="arrowright"
+                      color="#FFF"
+                      size={4}
+                    />
+                  }
+                ></IconButton>
+              </Button.Group>
+            </HStack>
           </Modal.Footer>
         </Modal.Content>
       </Modal>
@@ -145,6 +180,7 @@ export default function ProductDetailScreen({ navigation, route }) {
   return (
     <View
       style={{
+        backgroundColor: "#FFF",
         // ...styles.container,
         // paddingBottom: 60,
         flex: 1,
@@ -163,7 +199,7 @@ export default function ProductDetailScreen({ navigation, route }) {
               m={20}
               alt="DisplayPicture"
               // source={route.params.image}
-              source={require("../assets/images/iphone_13_pro.png")}
+              source={route.params.image}
             />
           </View>
           <VStack w="100%" h="100%" alignItems="flex-start">
@@ -185,11 +221,9 @@ export default function ProductDetailScreen({ navigation, route }) {
               <Text
                 style={{
                   fontSize: 36,
-                  fontFamily: "Avenir",
+                  fontFamily: "DMSans_700Bold",
                   fontWeight: "800",
                   color: "#ffffff",
-
-                  marginBottom: "1%",
                 }}
               >
                 {route.params.name}
@@ -198,23 +232,39 @@ export default function ProductDetailScreen({ navigation, route }) {
               <Text
                 style={{
                   fontSize: 18,
-                  fontFamily: "Avenir",
+                  fontFamily: "DMSans_400Regular",
+                  fontWeight: "800",
+                  color: "#ffffff",
+                  marginBottom: "-2%",
+                }}
+              >
+                Apple
+                {/* {userDetails && userDetails.name} */}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontFamily: "DMSans_700Bold",
                   fontWeight: "500",
                   color: "#ffffff",
                 }}
               >
                 {route.params.type}
               </Text>
-              <HStack py={3}>
+              <HStack
+                py={3}
+                style={{
+                  marginBottom: "3%",
+                }}
+              >
                 <Text
                   style={{
                     fontSize: 18,
-                    fontFamily: "Avenir",
-                    fontWeight: "500",
+                    fontFamily: "DMSans_700Bold",
                     color: "#ffffff",
                   }}
                 >
-                  HKD $10,000 /
+                  HKD {route.params.price} /
                 </Text>
                 <Image
                   // flex={1}
@@ -227,12 +277,12 @@ export default function ProductDetailScreen({ navigation, route }) {
                 <Text
                   style={{
                     fontSize: 18,
-                    fontFamily: "Avenir",
+                    fontFamily: "DMSans_700Bold",
                     fontWeight: "500",
-                    color: "#ffffff",
+                    color: "#FFF",
                   }}
                 >
-                  250,000
+                  {route.params.miles}
                 </Text>
               </HStack>
             </Box>
@@ -271,12 +321,18 @@ export default function ProductDetailScreen({ navigation, route }) {
               >
                 Description
               </Text>
+              <Text fontFamily="DMSans_400Regular" fontSize="14">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non,
+                cras maecenas neque interdum velit. Vel gravida purus eros, dui.
+                Vitae pulvinar faucibus placerat euismod quisque ac facilisis
+                libero. Purus et mi quis aenean purus venenatis velit ac netus.
+              </Text>
               <VStack
                 zIndex={100}
                 bottom={0}
                 position="absolute"
                 pl={7}
-                pb={5}
+                pb="180px"
                 w="100%"
               >
                 <Divider my={4} />
