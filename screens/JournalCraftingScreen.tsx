@@ -1,24 +1,26 @@
+import * as React from "react";
+
 import {
-  Text,
   Fab,
-  VStack,
   Icon,
-  TextArea,
+  IconButton,
   Input,
   KeyboardAvoidingView,
-  View,
-  IconButton,
   ScrollView,
+  Text,
+  TextArea,
+  VStack,
+  View,
 } from "native-base";
-import * as React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useState } from "react";
 import { Keyboard, StyleSheet, TouchableWithoutFeedback } from "react-native";
-import appTheme from "../constants/Colors";
-import { AntDesign } from "@expo/vector-icons";
 import { addNewJournal, updateJournal } from "../services/firestore";
+
+import { AntDesign } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
+import appTheme from "../constants/Colors";
 import store from "../state/store";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const JournalCraftingScreen = ({ navigation, route }) => {
   const user = useSelector((state: any) => state.user);
@@ -64,7 +66,7 @@ const JournalCraftingScreen = ({ navigation, route }) => {
               padding={4}
             />
           </VStack>
-          <IconButton
+          {/* <IconButton
             position="absolute"
             top={0}
             left={5}
@@ -77,7 +79,7 @@ const JournalCraftingScreen = ({ navigation, route }) => {
                 size="md"
               />
             }
-          />
+          /> */}
         </View>
       </TouchableWithoutFeedback>
       <View position="absolute" bottom={0}>

@@ -1,34 +1,36 @@
-import { AntDesign } from "@expo/vector-icons";
-import { createStackNavigator } from "@react-navigation/stack";
-import { BarCodeScanner } from "expo-barcode-scanner";
+import * as React from "react";
+
 import {
-  VStack,
-  Image,
-  Button,
-  HStack,
-  Box,
   Avatar,
   Badge,
-  Fab,
-  Pressable,
-  Icon,
-  View,
-  Text,
+  Box,
+  Button,
   Divider,
-  Link,
-  ScrollView,
+  Fab,
+  HStack,
+  Icon,
   IconButton,
+  Image,
+  Link,
+  Pressable,
+  ScrollView,
+  Text,
+  VStack,
+  View,
 } from "native-base";
-import * as React from "react";
-import { useEffect, useState } from "react";
 import {
+  Dimensions,
+  ImageBackground,
+  Linking,
   LogBox,
   StyleSheet,
-  Linking,
-  ImageBackground,
-  Dimensions,
 } from "react-native";
+import { useEffect, useState } from "react";
+
+import { AntDesign } from "@expo/vector-icons";
+import { BarCodeScanner } from "expo-barcode-scanner";
 import { connect } from "react-redux";
+import { createStackNavigator } from "@react-navigation/stack";
 import { style } from "styled-system";
 
 LogBox.ignoreAllLogs();
@@ -88,8 +90,6 @@ const card = () => {
 };
 
 const TabOneScreen = (props: any) => {
-  const [lastPressedFeeling, setLastPressedFeeling] = useState<any>(null);
-  const [lastPressedSleep, setLastPressedSleep] = useState<any>(null);
   const [shouldShowCard, setShouldShowCard] = useState<boolean>(false);
 
   const images = [
@@ -304,7 +304,10 @@ const TabOneScreen = (props: any) => {
                 <HStack flexWrap="wrap" px={5}>
                   {categories.map((item, index) => {
                     return (
-                      <VStack
+                      <Pressable
+                        onPress={() =>
+                          props.navigation.navigate("TabTwoScreen")
+                        }
                         width="29%"
                         height="100"
                         mr={4}
@@ -314,22 +317,32 @@ const TabOneScreen = (props: any) => {
                         borderRadius={15}
                         borderWidth={1}
                         borderColor="#00595E"
-                        // resizeMode="cover"
                       >
-                        <Image
-                          style={styles.icon}
-                          resizeMode="contain"
-                          source={images[index]}
-                        />
-                        <Text
-                          textAlign="center"
-                          fontWeight="600"
-                          fontSize="12"
-                          color="#00595E"
+                        <VStack
+                          // width="29%"
+                          height="100"
+                          // mr={4}
+                          // mb={4}
+                          alignItems="center"
+                          justifyContent="center"
+
+                          // resizeMode="cover"
                         >
-                          {item}
-                        </Text>
-                      </VStack>
+                          <Image
+                            style={styles.icon}
+                            resizeMode="contain"
+                            source={images[index]}
+                          />
+                          <Text
+                            textAlign="center"
+                            fontWeight="600"
+                            fontSize="12"
+                            color="#00595E"
+                          >
+                            {item}
+                          </Text>
+                        </VStack>
+                      </Pressable>
                     );
                   })}
                 </HStack>

@@ -1,39 +1,41 @@
-import { createStackNavigator } from "@react-navigation/stack";
-import { BarCodeScanner } from "expo-barcode-scanner";
-import {
-  VStack,
-  Image,
-  Button,
-  HStack,
-  Box,
-  Avatar,
-  Badge,
-  Icon,
-  Center,
-  ZStack,
-  View,
-  Container,
-  Fab,
-  Divider,
-  ScrollView,
-  IconButton,
-  Text,
-  Modal,
-  Radio,
-  Slider,
-} from "native-base";
 import * as React from "react";
-import { useEffect, useState } from "react";
+
 import {
+  AntDesign,
   Ionicons,
   MaterialCommunityIcons,
-  AntDesign,
 } from "@expo/vector-icons";
-import { StyleSheet } from "react-native";
+import {
+  Avatar,
+  Badge,
+  Box,
+  Button,
+  Center,
+  Container,
+  Divider,
+  Fab,
+  HStack,
+  Icon,
+  IconButton,
+  Image,
+  Modal,
+  Radio,
+  ScrollView,
+  Slider,
+  Text,
+  VStack,
+  View,
+  ZStack,
+} from "native-base";
 // import { Text, View } from "../components/Themed";
 import { connectTwoUsers, getUserDetails } from "../services/firestore";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { StyleSheet } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
 import store from "../state/store";
+import { useSelector } from "react-redux";
 
 export default function ProductDetailScreen({ navigation, route }) {
   const user = useSelector((state: any) => state.user);

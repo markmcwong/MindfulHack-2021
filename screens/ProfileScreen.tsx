@@ -1,19 +1,7 @@
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import {
-  HStack,
-  Icon,
-  IconButton,
-  Badge,
-  StatusBar,
-  VStack,
-  Text,
-  Image,
-  Divider,
-  Button,
-} from "native-base";
+import "firebase/firestore";
+
 import * as React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { View } from "../components/Themed";
+
 import {
   Animated,
   Dimensions,
@@ -21,12 +9,27 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
-import { logout } from "../services/auth";
-import { useEffect, useState } from "react";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Badge,
+  Button,
+  Divider,
+  HStack,
+  Icon,
+  IconButton,
+  Image,
+  StatusBar,
+  Text,
+  VStack,
+} from "native-base";
 import { connect, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+
+import { SafeAreaView } from "react-native-safe-area-context";
+import { View } from "../components/Themed";
 import firebase from "firebase";
-import "firebase/firestore";
 import { getUserDetails } from "../services/firestore";
+import { logout } from "../services/auth";
 
 const User = {
   name: "Robe Jobs",
@@ -126,36 +129,6 @@ const ProfileScreen = (props: any) => {
         marginTop={3}
       >
         <HStack style={styles.topBar}>
-          <Button
-            mx={-5}
-            my={-3}
-            variant="unstyled"
-            onPress={() =>
-              user.name == "Amanda"
-                ? props.navigation.goBack()
-                : props.navigation.navigate("Auth")
-            }
-          >
-            <Text
-              style={{
-                fontSize: 24,
-                fontWeight: "500",
-                fontFamily: "Avenir",
-              }}
-            >
-              <Icon
-                size="sm"
-                as={<AntDesign name="left" />}
-                color="black"
-                onPress={() =>
-                  user.name == "Amanda"
-                    ? props.navigation.goBack()
-                    : props.navigation.navigate("Auth")
-                }
-              />
-            </Text>
-          </Button>
-
           <Icon
             size="sm"
             as={<AntDesign name="logout" />}

@@ -1,17 +1,5 @@
-import {
-  VStack,
-  Icon,
-  Text,
-  View,
-  IconButton,
-  Button,
-  HStack,
-  Image,
-} from "native-base";
 import * as React from "react";
-import { useCallback, useEffect, useLayoutEffect, useState } from "react";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { LogBox, StyleSheet } from "react-native";
+
 import {
   Bubble,
   Composer,
@@ -21,10 +9,24 @@ import {
   Send,
   Time,
 } from "react-native-gifted-chat";
-import { connect } from "react-redux";
+import {
+  Button,
+  HStack,
+  Icon,
+  IconButton,
+  Image,
+  Text,
+  VStack,
+  View,
+} from "native-base";
+import { LogBox, StyleSheet } from "react-native";
 import { fetchMessagesByGroupId, sendNewMessage } from "../services/firestore";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import appTheme from "../constants/Colors";
+import { connect } from "react-redux";
 import store from "../state/store";
 
 LogBox.ignoreAllLogs();
@@ -164,7 +166,7 @@ const ChatBox = ({ route, user, navigation }) => {
             elevation: 5,
           }}
         >
-          <IconButton
+          {/* <IconButton
             zIndex={20}
             icon={
               <Icon
@@ -181,7 +183,7 @@ const ChatBox = ({ route, user, navigation }) => {
               });
               navigation.goBack();
             }}
-          ></IconButton>
+          ></IconButton> */}
           <Button
             variant="unstyled"
             onPress={() => navigation.navigate("Profile")}

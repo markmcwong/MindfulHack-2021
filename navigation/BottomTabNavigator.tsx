@@ -3,24 +3,26 @@
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 
-import { Ionicons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
 
-import TabOneScreen from "../screens/TabOneScreen";
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
+import { HStack, Icon, Image, VStack } from "native-base";
 import { Text, View } from "../components/Themed";
-import { Image, HStack, VStack, Icon } from "native-base";
-import { TouchableOpacity } from "react-native";
+
 import { ChatListScreen } from "../screens/ChatListScreen";
-import { useSelector } from "react-redux";
-import appTheme from "../constants/Colors";
-import JournalScreen from "../screens/JournalScreen";
-import store from "../state/store";
 import Consultants from "../screens/Consultants";
+import { Ionicons } from "@expo/vector-icons";
+import JournalScreen from "../screens/JournalScreen";
 import OfferStack from "./OfferNavigator";
+import ProductScreen from "../screens/ProductScreen";
 import ShopScreen from "../screens/ShopScreen";
+import TabOneScreen from "../screens/TabOneScreen";
+import { TouchableOpacity } from "react-native";
+import appTheme from "../constants/Colors";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+import store from "../state/store";
+import { useSelector } from "react-redux";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -205,6 +207,21 @@ function TabOneNavigator() {
           headerTitle: () => <Text></Text>,
         }}
       />
+      <TabOneStack.Screen
+        name="TabTwoScreen"
+        component={ProductScreen}
+        options={
+          {
+            // header: () => (
+            //   <View style={{ backgroundColor: "#57B894" }}>
+            //     <Text>abcx</Text>
+            //   </View>
+            // ),
+            // header: () => null,
+            // headerTitle: () => <Text></Text>,
+          }
+        }
+      />
       {/* <TabOneStack.Screen
         name="PersonDetailScreen"
         component={PersonDetailScreen}
@@ -220,22 +237,5 @@ function TabOneNavigator() {
         }}
       /> */}
     </TabOneStack.Navigator>
-  );
-}
-
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
-
-function TabTwoNavigator() {
-  return (
-    <TabTwoStack.Navigator initialRouteName="ChatList">
-      <TabTwoStack.Screen
-        name="ChatList"
-        component={ChatListScreen}
-        options={{
-          header: () => null,
-          headerTitle: () => <Text></Text>,
-        }}
-      />
-    </TabTwoStack.Navigator>
   );
 }
