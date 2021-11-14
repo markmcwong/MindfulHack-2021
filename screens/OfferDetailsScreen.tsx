@@ -1,18 +1,19 @@
-import React from "react";
 import {
-  Text,
+  Divider,
+  HStack,
+  Icon,
+  IconButton,
   Image,
   ScrollView,
-  View,
+  Text,
   VStack,
-  Icon,
-  HStack,
-  Divider,
-  IconButton,
+  View,
 } from "native-base";
-
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+
+import React from "react";
 import { StyleSheet } from "react-native";
+
 export default function OfferDetailsScreen({ navigation, route }) {
   return (
       <ScrollView style={styles.container}>
@@ -32,7 +33,6 @@ export default function OfferDetailsScreen({ navigation, route }) {
               />
             }
             onPress={() => {
-              
               navigation.goBack();
             }}
           ></IconButton>
