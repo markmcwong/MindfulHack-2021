@@ -23,6 +23,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import store from "../state/store";
 import { useSelector } from "react-redux";
+import MyAccount from "../screens/MyAccount";
+import Membership from "../screens/Membership";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -73,7 +75,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="TabFive"
-        component={JournalScreen}
+        component={Membership}
         options={{
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="person-outline" color={color} />
