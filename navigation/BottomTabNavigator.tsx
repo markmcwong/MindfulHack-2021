@@ -12,7 +12,6 @@ import { Text, View } from "../components/Themed";
 import { ChatListScreen } from "../screens/ChatListScreen";
 import Consultants from "../screens/Consultants";
 import { Ionicons } from "@expo/vector-icons";
-import JournalScreen from "../screens/JournalScreen";
 import OfferStack from "./OfferNavigator";
 import ProductScreen from "../screens/ProductScreen";
 import ShopScreen from "../screens/ShopScreen";
@@ -73,7 +72,7 @@ export default function BottomTabNavigator() {
           ),
         }}
       />
-      <BottomTab.Screen
+      {/* <BottomTab.Screen
         name="TabFive"
         component={Membership}
         options={{
@@ -81,7 +80,7 @@ export default function BottomTabNavigator() {
             <TabBarIcon name="person-outline" color={color} />
           ),
         }}
-      />
+      /> */}
     </BottomTab.Navigator>
   );
 }
@@ -97,7 +96,6 @@ function MyTabBar({ state, descriptors, navigation }) {
         flexDirection: "row",
         backgroundColor: "#FFF",
         // height: 50,
-
         padding: 15,
         // borderRadius: 25,
         // justifyContent: "center",
@@ -212,17 +210,15 @@ function TabOneNavigator() {
       <TabOneStack.Screen
         name="TabTwoScreen"
         component={ProductScreen}
-        options={
-          {
-            // header: () => (
-            //   <View style={{ backgroundColor: "#57B894" }}>
-            //     <Text>abcx</Text>
-            //   </View>
-            // ),
-            // header: () => null,
-            // headerTitle: () => <Text></Text>,
-          }
-        }
+        options={{
+          header: () => (
+            <View style={{ backgroundColor: "#57B894" }}>
+              <Text>abcx</Text>
+            </View>
+          ),
+          header: () => null,
+          headerTitle: () => <Text></Text>,
+        }}
       />
       {/* <TabOneStack.Screen
         name="PersonDetailScreen"
