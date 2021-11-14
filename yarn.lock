@@ -1308,6 +1308,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
+"@expo-google-fonts/dm-sans@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/dm-sans/-/dm-sans-0.2.0.tgz#2e095337cd38873e56b104e4c152d61adb33c12c"
+  integrity sha512-PsqVpbas6ySK/ERDRNW0OmiuIf9bJPQWDID1wyNACZuSk91d5OdJkd8BpqvQJirpJKggIGmybJ/ESxZLQCgJ9g==
+
 "@expo/apple-utils@0.0.0-alpha.25":
   version "0.0.0-alpha.25"
   resolved "https://registry.yarnpkg.com/@expo/apple-utils/-/apple-utils-0.0.0-alpha.25.tgz#fea4f5a409cc1bf79a0d2acec3eca52dbd8443c1"

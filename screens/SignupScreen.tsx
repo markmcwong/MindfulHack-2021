@@ -54,14 +54,14 @@ export default function LandingScreen({ navigation }) {
             <Image
               resizeMode="cover"
               style={styles.logoImage}
-              source={require("../assets/images/mindfulhack_login_4.png")}
+              source={require("../assets/images/register_page_4_diagram.png")}
               margin={15}
               alt="signup"
             />
             <VStack space={4}>
               <Input
                 padding={4}
-                placeholder="Please enter your email"
+                placeholder="Email"
                 backgroundColor="#F1F1F1"
                 value={email}
                 onChangeText={(e: string) => setEmail(e)}
@@ -76,11 +76,12 @@ export default function LandingScreen({ navigation }) {
               />
               <Input
                 padding={4}
-                placeholder="User Name"
+                placeholder="Username"
                 backgroundColor="#F1F1F1"
                 value={username}
                 onChangeText={(e: string) => setUsername(e)}
               />
+
               <Text style={{ ...styles.link, textAlign: "left" }}>
                 Password should consist of at least 8 characters, including
                 letters and numbers
@@ -104,7 +105,7 @@ export default function LandingScreen({ navigation }) {
           <VStack paddingBottom={2}>
             <Text
               style={{ ...styles.link, marginTop: "5%" }}
-              onPress={() => navigation.navigate("Login")}
+              onPress={() => navigation.navigate("FirstTime")}
             >
               Have an account? Sign in Here
             </Text>
@@ -120,17 +121,14 @@ export default function LandingScreen({ navigation }) {
               // width="75%"
               marginTop={2}
               onPress={() => loginWithGoogle()}
-              startIcon={
-                <Icon as={MaterialCommunityIcons} name="google" size={5} />
-              }
             >
-              Login with Google
+              Login as Guest
             </Button>
           </VStack>
         </SafeAreaView>
       </TouchableWithoutFeedback>
       <ImageBackground
-        source={require("../assets/images/mindfulhack_login_bg.png")}
+        source={require("../assets/images/background_shape.png")}
         resizeMode="cover"
         style={styles.image}
       />
@@ -189,7 +187,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   button: {
-    backgroundColor: "#FEA2A2",
+    backgroundColor: "#00595E",
     // width: "100%",
     // textAlign: "left",
     borderRadius: 10,

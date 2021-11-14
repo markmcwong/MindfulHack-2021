@@ -16,10 +16,11 @@ import { TouchableOpacity } from "react-native";
 import { ChatListScreen } from "../screens/ChatListScreen";
 import { useSelector } from "react-redux";
 import appTheme from "../constants/Colors";
-import Inspiration from "../screens/Inspiration";
 import JournalScreen from "../screens/JournalScreen";
 import store from "../state/store";
 import Consultants from "../screens/Consultants";
+import OfferStack from "./OfferNavigator";
+import ShopScreen from "../screens/ShopScreen";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -52,19 +53,19 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="TabFour"
-        component={Consultants}
+        component={ShopScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="person-circle-outline" color={color} />
+            <TabBarIcon name="basket-outline" color={color} />
           ),
         }}
       />
       <BottomTab.Screen
         name="TabThree"
-        component={Inspiration}
+        component={OfferStack}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="bulb-outline" color={color} />
+            <TabBarIcon name="pricetag-outline" color={color} />
           ),
         }}
       />
@@ -73,7 +74,7 @@ export default function BottomTabNavigator() {
         component={JournalScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="journal-outline" color={color} />
+            <TabBarIcon name="person-outline" color={color} />
           ),
         }}
       />
@@ -90,17 +91,19 @@ function MyTabBar({ state, descriptors, navigation }) {
     <View
       style={{
         flexDirection: "row",
-        backgroundColor: "#FFF1F1",
+        backgroundColor: "#FFF",
         // height: 50,
 
         padding: 15,
-        borderRadius: 25,
+        // borderRadius: 25,
         // justifyContent: "center",
         // alignItems: "center",
-        marginHorizontal: 30,
+        // marginHorizontal: 30,
+        borderTopColor: "lightgrey",
+        borderWidth: 0.5,
         overflow: "hidden",
         position: "absolute",
-        bottom: 20,
+        bottom: 0,
       }}
     >
       {state.routes.map((route, index) => {
@@ -183,8 +186,8 @@ function TabOneNavigator() {
         // headerTitleStyle: { textAlign: "left" },
         // header: () => null,
         headerStyle: {
-          backgroundColor: appTheme.default.pink,
-          height: 30,
+          backgroundColor: "#FFF",
+          height: 0,
           shadowOffset: { height: 0 },
         },
       }}

@@ -1,3 +1,4 @@
+import { AntDesign } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import {
@@ -10,614 +11,334 @@ import {
   Badge,
   Fab,
   Pressable,
-  IconButton,
   Icon,
   View,
   Text,
   Divider,
   Link,
+  ScrollView,
+  IconButton,
 } from "native-base";
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { LogBox, StyleSheet, Linking } from "react-native";
+import {
+  LogBox,
+  StyleSheet,
+  Linking,
+  ImageBackground,
+  Dimensions,
+} from "react-native";
 import { connect } from "react-redux";
-import { ScrollView } from "react-native-gesture-handler";
+import { style } from "styled-system";
 
 LogBox.ignoreAllLogs();
 
-export function LogoTitle(user: any) {
+const categories = [
+  "Electronics",
+  "Fashion & Accessories",
+  "Food &\nWine",
+  "Home",
+  "Sports &\nLeisure",
+  "Concerts &\nEntertainments",
+  "Travel",
+  "Health &\nBeauty",
+  "Cathay Merchandise",
+];
+
+const card = () => {
   return (
-    <VStack
-      alignItems="flex-start"
-      // width="100%"
-      space={3}
-      left={8}
-      // marginTop={30}
-    >
-      <Text fontFamily="Avenir" style={{ fontSize: 16, color: "#FFF" }}>
-        Welcome!
-      </Text>
-      <Text
-        fontFamily="Avenir"
-        fontWeight="800"
-        style={{ fontSize: 24, color: "#FFF", marginTop: -5 }}
+    <>
+      <VStack
+        backgroundColor="white"
+        p={7}
+        borderRadius="20"
+        w="90%"
+        height="60%"
+        mt="20"
+        alignItems="center"
+        space={3}
       >
-        {user.name}
-      </Text>
-    </VStack>
+        <HStack justifyContent="space-between" width="100%">
+          <VStack space={2}>
+            <Text fontSize="16" color="lightgrey">
+              Balance
+            </Text>
+            <Text fontSize="40" color="#00595E" fontWeight="600">
+              1,800
+            </Text>
+            <Text fontSize="16" color="#00595E" fontWeight="500">
+              Chan Tai Man
+            </Text>
+          </VStack>
+          <Image
+            width="50"
+            height="50"
+            source={require("../assets/images/asia_miles.png")}
+          />
+        </HStack>
+        <Image
+          width="215"
+          height="82"
+          resizeMode="contain"
+          source={require("../assets/images/barcode_1.png")}
+        />
+      </VStack>
+    </>
   );
-}
+};
 
 const TabOneScreen = (props: any) => {
   const [lastPressedFeeling, setLastPressedFeeling] = useState<any>(null);
   const [lastPressedSleep, setLastPressedSleep] = useState<any>(null);
+  const [shouldShowCard, setShouldShowCard] = useState<boolean>(false);
+
+  const images = [
+    require("../assets/images/Electronics.png"),
+    require("../assets/images/FashionAccessories.png"),
+    require("../assets/images/FoodWine.png"),
+    require("../assets/images/Home.png"),
+    require("../assets/images/SportsLeisure.png"),
+    require("../assets/images/ConcertsEntertainments.png"),
+    require("../assets/images/Travel.png"),
+    require("../assets/images/HealthBeauty.png"),
+    require("../assets/images/CathayMerchandise.png"),
+  ];
 
   return (
-    <>
-      <HStack
-        style={{
-          backgroundColor: "#FEA2A2",
-          alignSelf: "start",
-          alignItems: "center",
-          justifyContent: "space-between",
-          // position: "absolute",
-          height: 100,
-          width: "100%",
-          // borderBottomLeftRadius: 20,
-          // borderBottomRightRadius: 20,
-        }}
-      >
-        {LogoTitle(props.user)}
-        <Button
-          variant="unstyled"
-          onPress={() => props.navigation.navigate("Profile")}
-        >
-          <Image
-            source={require("../assets/images/mindfulhack_sleep_happy.png")}
-            alt="profile"
-            height={50}
-            width={50}
-            // marginTop={30}
-            marginRight={25}
-            borderRadius={25}
-          />
-        </Button>
-      </HStack>
-
-      <ScrollView style={{ backgroundColor: "#fff" }}>
-        <View
-          style={{
-            ...styles.container,
-            paddingBottom: 60,
-          }}
-        >
-          <VStack
-            style={{
-              backgroundColor: "#fff",
-              alignItems: "center",
-
-              // position: "absolute",
-
-              width: "100%",
-              // borderBottomLeftRadius: 20,
-              // borderBottomRightRadius: 20,
-            }}
-          >
-            <Text
-              style={{
-                color: "#FEA2A2",
-                fontFamily: "Avenir",
-                fontWeight: "800",
-                fontSize: "22px",
-              }}
-            >
-              How do you feel today?
-            </Text>
-            <Text
-              style={{
-                color: "#656565",
-                fontFamily: "Avenir",
-                fontWeight: "400",
-                fontSize: "12px",
-                marginBottom: "5%",
-              }}
-            >
-              This will be recorded automatically at the end of the day
-            </Text>
-            <HStack>
-              <Pressable
-                style={({ pressed }) => [
-                  {
-                    backgroundColor:
-                      lastPressedFeeling == "Happy" ? "#FEA2A2" : "white",
-                  },
-                ]}
-                p={2}
-                alignItems="center"
-                justifyContent="center"
-                borderWidth={1}
-                borderRadius={25}
-                width={32}
-                height={24}
-                borderColor="#FEA2A2"
-                marginRight="5%"
-                borderWidth={2}
-                onPress={() =>
-                  lastPressedFeeling == "Happy"
-                    ? setLastPressedFeeling(null)
-                    : setLastPressedFeeling("Happy")
-                }
-              >
-                <Image
-                  source={require("../assets/images/mindfulhack_happy.png")}
-                  alt="happy"
-                  width={16}
-                  height={16}
-                  borderRadius={25}
+    <View
+      style={{
+        flex: 1,
+        display: "flex",
+        height: "90%",
+      }}
+      mb={16}
+    >
+      <ScrollView>
+        {shouldShowCard ? (
+          <>
+            <IconButton
+              position="absolute"
+              // backgroundColor="white"
+              borderRadius={15}
+              width="12"
+              height="12"
+              left={5}
+              top={12}
+              zIndex={20}
+              icon={
+                <Icon
+                  color="#FFF"
+                  as={<AntDesign name="arrowleft" />}
+                  size="md"
                 />
-              </Pressable>
-              <Pressable
-                style={({ pressed }) => [
-                  {
-                    backgroundColor:
-                      lastPressedFeeling == "Joyful" ? "#FEA2A2" : "white",
-                  },
-                ]}
-                p={2}
-                alignItems="center"
-                justifyContent="center"
-                borderWidth={1}
-                borderRadius={25}
-                width={32}
-                height={24}
-                borderColor="#FEA2A2"
-                borderWidth={2}
-                onPress={() =>
-                  lastPressedFeeling == "Joyful"
-                    ? setLastPressedFeeling(null)
-                    : setLastPressedFeeling("Joyful")
-                }
-              >
-                <Image
-                  source={require("../assets/images/mindfulhack_joyful.png")}
-                  alt="joyful"
-                  width={16}
-                  height={16}
-                  borderRadius={25}
-                />
-              </Pressable>
-            </HStack>
-
-            <HStack style={{ marginTop: "3%", marginBottom: "5%" }}>
-              <Pressable
-                style={({ pressed }) => [
-                  {
-                    backgroundColor:
-                      lastPressedFeeling == "Anxious" ? "#FEA2A2" : "white",
-                  },
-                ]}
-                p={2}
-                alignItems="center"
-                justifyContent="center"
-                borderWidth={1}
-                borderRadius={25}
-                width={32}
-                height={24}
-                borderColor="#FEA2A2"
-                marginRight="5%"
-                borderWidth={2}
-                onPress={() =>
-                  lastPressedFeeling == "Anxious"
-                    ? setLastPressedFeeling(null)
-                    : setLastPressedFeeling("Anxious")
-                }
-              >
-                <Image
-                  source={require("../assets/images/mindfulhack_anxious.png")}
-                  alt="anxious"
-                  width={16}
-                  height={16}
-                  borderRadius={25}
-                />
-              </Pressable>
-              <Pressable
-                style={({ pressed }) => [
-                  {
-                    backgroundColor:
-                      lastPressedFeeling == "Sad" ? "#FEA2A2" : "white",
-                  },
-                ]}
-                p={2}
-                alignItems="center"
-                justifyContent="center"
-                borderWidth={1}
-                borderRadius={25}
-                width={32}
-                height={24}
-                borderColor="#FEA2A2"
-                borderWidth={2}
-                onPress={() =>
-                  lastPressedFeeling == "Sad"
-                    ? setLastPressedFeeling(null)
-                    : setLastPressedFeeling("Sad")
-                }
-              >
-                <Image
-                  source={require("../assets/images/mindfulhack_sad.png")}
-                  alt="sad"
-                  width={16}
-                  height={16}
-                  borderRadius={25}
-                />
-              </Pressable>
-            </HStack>
-          </VStack>
-
-          <VStack
-            style={{
-              backgroundColor: "#FEA2A2",
-              alignItems: "center",
-
-              // position: "absolute",
-
-              width: "100%",
-              // borderBottomLeftRadius: 20,
-              // borderBottomRightRadius: 20,
-            }}
-          >
-            <Text
-              style={{
-                color: "#fff",
-                fontFamily: "Avenir",
-                fontWeight: "800",
-                fontSize: "20px",
-                marginTop: "5%",
-                textAlign: "center",
-              }}
-            >
-              Did you sleep well yesterday?
-            </Text>
-            <Text
-              style={{
-                color: "#fff",
-                fontFamily: "Avenir",
-                fontWeight: "400",
-                fontSize: "12px",
-                marginBottom: "5%",
-              }}
-            >
-              This will be recorded automatically at the end of the day
-            </Text>
-            <HStack>
-              <Pressable
-                style={({ pressed }) => [
-                  {
-                    backgroundColor:
-                      lastPressedSleep == "Very Good" ? "#fff" : "#FEA2A2",
-                  },
-                ]}
-                p={2}
-                alignItems="center"
-                justifyContent="center"
-                borderWidth={1}
-                borderRadius={25}
-                width={32}
-                height={12}
-                borderColor="#fff"
-                marginRight="5%"
-                borderWidth={2}
-                onPress={() =>
-                  lastPressedSleep == "Very Good"
-                    ? setLastPressedSleep(null)
-                    : setLastPressedSleep("Very Good")
-                }
-              >
-                <Text
-                  style={{
-                    color: lastPressedSleep == "Very Good" ? "#FEA2A2" : "#fff",
-                  }}
-                >
-                  Very Good
-                </Text>
-              </Pressable>
-              <Pressable
-                style={({ pressed }) => [
-                  {
-                    backgroundColor:
-                      lastPressedSleep == "Good" ? "#fff" : "#FEA2A2",
-                  },
-                ]}
-                p={2}
-                alignItems="center"
-                justifyContent="center"
-                borderWidth={1}
-                borderRadius={25}
-                width={32}
-                height={12}
-                borderColor="#fff"
-                marginRight="5%"
-                borderWidth={2}
-                onPress={() =>
-                  lastPressedSleep == "Good"
-                    ? setLastPressedSleep(null)
-                    : setLastPressedSleep("Good")
-                }
-              >
-                <Text
-                  style={{
-                    color: lastPressedSleep == "Good" ? "#FEA2A2" : "#fff",
-                  }}
-                >
-                  Good
-                </Text>
-              </Pressable>
-            </HStack>
-
-            <HStack style={{ marginTop: "3%", marginBottom: "5%" }}>
-              <Pressable
-                style={({ pressed }) => [
-                  {
-                    backgroundColor:
-                      lastPressedSleep == "Bad" ? "#fff" : "#FEA2A2",
-                  },
-                ]}
-                p={2}
-                alignItems="center"
-                justifyContent="center"
-                borderWidth={1}
-                borderRadius={25}
-                width={32}
-                height={12}
-                borderColor="#fff"
-                marginRight="5%"
-                borderWidth={2}
-                onPress={() =>
-                  lastPressedSleep == "Bad"
-                    ? setLastPressedSleep(null)
-                    : setLastPressedSleep("Bad")
-                }
-              >
-                <Text
-                  style={{
-                    color: lastPressedSleep == "Bad" ? "#FEA2A2" : "#fff",
-                  }}
-                >
-                  Bad
-                </Text>
-              </Pressable>
-              <Pressable
-                style={({ pressed }) => [
-                  {
-                    backgroundColor:
-                      lastPressedSleep == "I can't sleep" ? "#fff" : "#FEA2A2",
-                  },
-                ]}
-                p={2}
-                alignItems="center"
-                justifyContent="center"
-                borderWidth={1}
-                borderRadius={25}
-                width={32}
-                height={12}
-                borderColor="#fff"
-                marginRight="5%"
-                borderWidth={2}
-                onPress={() =>
-                  lastPressedSleep == "I can't sleep"
-                    ? setLastPressedSleep(null)
-                    : setLastPressedSleep("I can't sleep")
-                }
-              >
-                <Text
-                  style={{
-                    color:
-                      lastPressedSleep == "I can't sleep" ? "#FEA2A2" : "#fff",
-                  }}
-                >
-                  I can't sleep
-                </Text>
-              </Pressable>
-            </HStack>
-          </VStack>
-          <VStack>
-            <Text
-              style={{
-                color: "#6EA68E",
-                fontFamily: "Avenir",
-                fontWeight: "800",
-                fontSize: "20px",
-                marginTop: "10%",
-                marginBottom: "2%",
-                textAlign: "center",
-              }}
-            >
-              A Recommended Article For You
-            </Text>
-            <Pressable
-              borderWidth={2}
-              borderRadius={30}
-              borderColor={"#AADFCA"}
-              style={{ marginBottom: "10%" }}
-              onPress={() =>
-                Linking.openURL(
-                  "https://marieskelton.com/start-your-day-in-a-happy-mood/"
-                )
               }
-            >
-              <Link href="https://marieskelton.com/start-your-day-in-a-happy-mood/">
-                <HStack>
-                  <VStack
-                    width={24}
-                    backgroundColor={"#AADFCA"}
-                    borderBottomLeftRadius={28}
-                    borderTopLeftRadius={28}
-                    borderWidth={2}
-                    borderColor={"#AADFCA"}
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    <Image
-                      source={require("../assets/images/mindfulhack_tips.png")}
-                      alt="profile"
-                      height={50}
-                      width={50}
-                    />
-                  </VStack>
-                  <VStack>
-                    <Text
-                      style={{
-                        color: "#3F3D56",
-                        fontFamily: "Avenir",
-                        fontWeight: "600",
-                        fontSize: "16px",
-
-                        paddingTop: "3%",
-                        paddingLeft: "3%",
-                        paddingRight: "5%",
-                        textAlign: "left",
-                      }}
-                    >
-                      Begin a day with good mood
-                    </Text>
-                    <Text
-                      style={{
-                        color: "#3F3D56",
-                        fontFamily: "Avenir",
-                        fontWeight: "300",
-                        fontSize: "12px",
-
-                        paddingLeft: "6%",
-                        paddingRight: "5%",
-                        paddingBottom: "5%",
-                      }}
-                    >
-                      by Marie
-                    </Text>
-                  </VStack>
-                </HStack>
-              </Link>
-            </Pressable>
-          </VStack>
-
-          <VStack
-            style={{
-              backgroundColor: "#FFB46E",
-              alignItems: "center",
-
-              // position: "absolute",
-
-              width: "100%",
-              // borderBottomLeftRadius: 20,
-              // borderBottomRightRadius: 20,
-            }}
-          >
-            <Text
-              style={{
-                color: "#fff",
-                fontFamily: "Avenir",
-                fontWeight: "800",
-                fontSize: "20px",
-                marginTop: "8%",
-                textAlign: "center",
+              onPress={() => {
+                setShouldShowCard(false);
               }}
+            ></IconButton>
+          </>
+        ) : (
+          <IconButton
+            position="absolute"
+            backgroundColor="white"
+            borderRadius={15}
+            width="12"
+            height="12"
+            right={5}
+            top={12}
+            zIndex={20}
+            icon={
+              <Icon color="#00595E" as={<AntDesign name="scan1" />} size="sm" />
+            }
+            onPress={() => {
+              setShouldShowCard(true);
+            }}
+          ></IconButton>
+        )}
+        <ImageBackground
+          source={require("../assets/images/home_background.png")}
+          // resizeMode="cover"
+          style={styles.image}
+        >
+          {shouldShowCard ? (
+            card()
+          ) : (
+            <VStack
+              borderRadius="500"
+              borderColor="white"
+              borderWidth={2.5}
+              // padding="15%"
+              alignItems="center"
+              height={315}
+              width={315}
+              space={2}
+              justifyContent="center"
+              top={5}
             >
-              Want someone to talk to {"\n"} or get some advice?
-            </Text>
-            <Button
-              width={300}
-              height={60}
-              backgroundColor="#fff"
-              marginTop={5}
-              borderRadius={25}
-              onPress={() => props.navigation.navigate("TabFour")}
-            >
+              <Image source={require("../assets/images/asia_miles.png")} />
               <Text
-                style={{
-                  color: "#FFB46E",
-                  fontFamily: "Avenir",
-                  fontWeight: "800",
-                  fontSize: "20px",
-
-                  textAlign: "center",
-                }}
+                fontSize="40"
+                color="#FFF"
+                fontFamily="DM Sans"
+                fontWeight="bold"
               >
-                Find our consultants!
+                1,800
               </Text>
-            </Button>
-            <Image
-              source={require("../assets/images/mindfulhack_dashboard_consultant.png")}
-              alt="profile"
-              height={350}
-              width="100%"
-              borderRadius={25}
-              marginTop={10}
-            />
-          </VStack>
-          <VStack
-            style={{
-              backgroundColor: "#fff",
-              alignItems: "center",
+              <Text
+                fontWeight="bold"
+                fontFamily="DM Sans"
+                fontSize="16"
+                color="#FED253"
+              >
+                25,000 miles to gold tier
+              </Text>
+            </VStack>
+          )}
+        </ImageBackground>
 
-              // position: "absolute",
-
-              width: "100%",
-              // borderBottomLeftRadius: 20,
-              // borderBottomRightRadius: 20,
-            }}
-          >
-            <Text
-              style={{
-                color: "#73BCFF",
-                fontFamily: "Avenir",
-                fontWeight: "800",
-                fontSize: "22px",
-                marginTop: "8%",
-                textAlign: "center",
-              }}
-            >
-              What are you thinking?
+        <VStack
+          width="100%"
+          backgroundColor="white"
+          // position="absolute" top="400"
+        >
+          <HStack width="100%" backgroundColor="#379196" py={4}>
+            <Text fontFamily="DM Sans" fontWeight="bold" px={5} color="#FFF">
+              View Details
             </Text>
-            <Image
-              source={require("../assets/images/mindfulhack_dashboard_journal.png")}
-              alt="profile"
-              width={300}
-              height={173}
-              marginTop={10}
-            />
-            <Button
-              width={300}
-              height={60}
-              backgroundColor="#73BCFF"
-              borderRadius={25}
-              onPress={() => props.navigation.navigate("TabFive")}
-            >
-              Write it in the journal!
-            </Button>
+          </HStack>
+          <VStack>
+            <VStack width="100%" space={4} flex={1} mt={6}>
+              <HStack alignItems="center" justifyContent="space-between">
+                <Text
+                  fontFamily="DM Sans"
+                  fontWeight="bold"
+                  px={5}
+                  color="#00595E"
+                >
+                  Suggested for you
+                </Text>
+                <Text
+                  fontFamily="DM Sans"
+                  fontWeight="medium"
+                  px={5}
+                  color="#00595E"
+                  fontSize="13"
+                >
+                  View All
+                </Text>
+              </HStack>
+              <ScrollView pl={5} horizontal={true}>
+                {Array.from(Array(10).keys()).map((item, index) => {
+                  return (
+                    <VStack
+                      width="145"
+                      borderWidth="1"
+                      borderColor="#DFDFDF"
+                      space={2}
+                      borderRadius={10}
+                      alignItems="center"
+                      justifyContent="center"
+                      p={2.5}
+                      mr={2.5}
+                    >
+                      <Image source={require("../assets/images/product.png")} />
+                      <VStack
+                        px={0}
+                        style={{ marginLeft: "-15%" }}
+                        py={0.5}
+                        space={1}
+                      >
+                        <Text
+                          fontFamily="DM Sans"
+                          fontWeight="light"
+                          color="#000000"
+                          fontSize="10"
+                          textAlign="left"
+                          width="100%"
+                          textAlign="left"
+                        >
+                          Shop 1
+                        </Text>
+                        <Text
+                          fontFamily="DM Sans"
+                          fontWeight="bold"
+                          color="#00595E"
+                          fontSize="11"
+                          width="100%"
+                          textAlign="left"
+                        >
+                          Product Name 1
+                        </Text>
+                        <HStack alignItems="center">
+                          <Image
+                            width={4}
+                            height={4}
+                            source={require("../assets/images/asia_miles.png")}
+                          />
+                          <Text fontSize="12">10000</Text>
+                        </HStack>
+                        <Badge
+                          backgroundColor="#FFB8B8"
+                          borderRadius={10}
+                          px={2}
+                          py={0.5}
+                        >
+                          <Text color="#FFF" fontSize={10}>
+                            Women's Clothes
+                          </Text>
+                        </Badge>
+                      </VStack>
+                    </VStack>
+                  );
+                })}
+              </ScrollView>
+              <VStack space={4} mt={2} flex={1}>
+                <Text
+                  fontFamily="DM Sans"
+                  fontWeight="bold"
+                  px={5}
+                  color="#00595E"
+                >
+                  Shop Categories
+                </Text>
+                <HStack flexWrap="wrap" px={5}>
+                  {categories.map((item, index) => {
+                    return (
+                      <VStack
+                        width="29%"
+                        height="100"
+                        mr={4}
+                        mb={4}
+                        alignItems="center"
+                        justifyContent="center"
+                        borderRadius={15}
+                        borderWidth={1}
+                        borderColor="#00595E"
+                        // resizeMode="cover"
+                      >
+                        <Image
+                          style={styles.icon}
+                          resizeMode="contain"
+                          source={images[index]}
+                        />
+                        <Text
+                          textAlign="center"
+                          fontWeight="600"
+                          fontSize="12"
+                          color="#00595E"
+                        >
+                          {item}
+                        </Text>
+                      </VStack>
+                    );
+                  })}
+                </HStack>
+              </VStack>
+            </VStack>
           </VStack>
-          <Divider style={{ marginTop: "10%" }} />
-          <Text
-            style={{
-              color: "#2F2E41",
-              fontFamily: "Avenir",
-              fontWeight: "200",
-              fontSize: "18px",
-              marginTop: "8%",
-              textAlign: "center",
-            }}
-          >
-            You are supported by
-          </Text>
-          <Image
-            source={require("../assets/images/SciKick.png")}
-            alt="profile"
-            width={215}
-            height={55}
-            marginTop={2}
-            marginBottom={20}
-          />
-        </View>
+        </VStack>
       </ScrollView>
-    </>
+    </View>
   );
 };
 
@@ -640,6 +361,35 @@ export default connect(mapStateToProps)(TabOneScreen);
 // export default DepositStack;
 
 const styles = StyleSheet.create({
+  scrollView: {
+    // height: Dimensions.get("window").height,
+    height: "100%",
+    width: "80%",
+    alignSelf: "center",
+  },
+  contentContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "lightgrey",
+    paddingBottom: 50,
+  },
+  icon: {
+    height: 50,
+    width: 50,
+  },
+  image: {
+    // resizeMode: "contain",
+    // flex: 1,
+    width: "100%",
+    height: 400,
+    justifyContent: "center",
+    alignItems: "center",
+    // opacity: 0.75,
+    // position: "absolute",
+    // aspectRatio: 1,
+    // position: "absolute",
+    // zIndex: -1,
+  },
   container: {
     flex: 1,
     paddingTop: 20,

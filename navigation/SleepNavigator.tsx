@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
 import chatBox from "../screens/chatBox";
 import { ChatListScreen } from "../screens/ChatListScreen";
-import PersonDetailScreen from "../screens/PersonDetail";
+import ProductDetailScreen from "../screens/ProductDetail";
 import SleepExercise1 from "../screens/SleepExercise1";
 import SleepExercise2 from "../screens/SleepExercise2";
 import SleepQuality from "../screens/SleepQuality";

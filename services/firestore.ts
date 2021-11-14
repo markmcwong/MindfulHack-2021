@@ -13,21 +13,25 @@ export const createNewUserRecord = async (
   email: string,
   userId: string
 ) => {
-  db.collection("user").doc(userId).set({
+  db.collection("users").doc(userId).set({
     email: email,
     name: name,
   });
 };
 
-export const getUserRecord = async (userId: string) => {
+export const getUserRecord = async (
+  userId: string,
+  isNewUser: boolean = false
+) => {
   console.log("userId : " + userId);
-  const record = await db.collection("user").doc(userId).get();
+  const record = await db.collection("users").doc(userId).get();
   console.log("current user: " + record.data()!);
   store.dispatch({
     type: "READ_USER_DETAILS",
     name: record.data()!.name,
     isPsych: record.data()!.isPsych,
     uid: userId,
+    isNewUser: isNewUser,
   });
 };
 
@@ -35,7 +39,7 @@ export const fetchGroupByUserID = (uid: string, callback: Function) => {
   console.log("start this" + uid);
   const groupRef = db.collection("message");
   groupRef
-    .where("members", "array-contains", db.collection("user").doc(uid))
+    .where("members", "array-contains", db.collection("users").doc(uid))
     .onSnapshot((querySnapshot: firestoreTypes.QuerySnapshot) => {
       console.log("hiii" + querySnapshot.size);
       let groups: any = [];
@@ -50,7 +54,7 @@ export const fetchGroupByUserID = (uid: string, callback: Function) => {
 };
 
 export const getUserDetails = async (userId: string, callback: Function) => {
-  const ref = await db.collection("user").doc(userId).get();
+  const ref = await db.collection("users").doc(userId).get();
   // console.log(data.data());
   const data = ref.data();
   console.log(data);
@@ -122,7 +126,7 @@ export const connectTwoUsers = async (ids: string[]) => {
   promises.push(
     db
       .collection("message")
-      .where("members", "array-contains", db.collection("user").doc(ids[0]))
+      .where("members", "array-contains", db.collection("users").doc(ids[0]))
       .get()
       .then((docs) => {
         arefs = docs.docs.map((x) => x.id);
@@ -131,7 +135,7 @@ export const connectTwoUsers = async (ids: string[]) => {
   promises.push(
     db
       .collection("message")
-      .where("members", "array-contains", db.collection("user").doc(ids[1]))
+      .where("members", "array-contains", db.collection("users").doc(ids[1]))
       .get()
       .then((docs) => {
         brefs = docs.docs.map((x) => x.id);
@@ -150,7 +154,7 @@ export const connectTwoUsers = async (ids: string[]) => {
     const newMessage = await messageRef.add({
       lastText: "Start your new conversation now!",
       lastSent: firebase.firestore.FieldValue.serverTimestamp(),
-      members: ids.map((x) => db.collection("user").doc(x)),
+      members: ids.map((x) => db.collection("users").doc(x)),
     });
     return newMessage.id;
   } else {
@@ -161,7 +165,7 @@ export const connectTwoUsers = async (ids: string[]) => {
 // export const fetchConversation = async () => {
 //   let messages;
 //   console.log("start");
-//   const userRef = db.collection("user");
+//   const userRef = db.collection("users");
 //   const snapshot: firestoreTypes.QuerySnapshot = await userRef
 //     .where("languages", "array-contains-any", languages)
 //     .get();
@@ -178,7 +182,7 @@ export const addNewJournal = async (
   const newJournal = await journalRef.add({
     title,
     thoughts,
-    author: db.collection("user").doc(author),
+    author: db.collection("users").doc(author),
     createdAt: firebase.firestore.Timestamp.now(),
   });
   return newJournal.id;
@@ -188,7 +192,7 @@ export const fetchJournals = (author: string, callback: Function) => {
   const journalRef = db.collection("journal");
   // console.log("called fetchJournals");
   journalRef
-    .where("author", "==", db.collection("user").doc(author))
+    .where("author", "==", db.collection("users").doc(author))
     .orderBy("createdAt", "desc")
     .onSnapshot((querySnapshot) => {
       let journals: any = [];
@@ -216,4 +220,52 @@ export const updateJournal = async (
     title,
     thoughts,
   });
+};
+
+// new app
+
+export const updateNewUserPreferences = async (
+  preferences: string[],
+  userId: string
+) => {
+  console.log(preferences);
+  const usersRef = db.collection("users");
+  await usersRef.doc(userId).update({
+    preferences: preferences,
+  });
+  console.log("works");
+  store.dispatch({
+    type: "FINISH_ONBOARD",
+  });
+};
+
+export const updateNewUserInfo = async (
+  firstName: string,
+  lastName: string,
+  nationality: string,
+  phoneNumber: string,
+  country: string,
+  city: string,
+  addressLine1: string,
+  addressLine2: string,
+  postalCode: string,
+  userId: string
+) => {
+  const usersRef = db.collection("users");
+  console.log("add new users from " + firstName + "" + lastName);
+  const newUserRecord = await usersRef.doc(userId).update({
+    firstName: firstName,
+    lastName: lastName,
+    nationality: nationality,
+    phoneNumber: phoneNumber,
+    country: country,
+    city: city,
+    addressLine1: addressLine1,
+    addressLine2: addressLine2,
+    postalCode: postalCode,
+    // user: db.collection("users").doc(userId),
+    createdAt: firebase.firestore.Timestamp.now(),
+  });
+  console.log("works");
+  // return newUserRecord.id;
 };

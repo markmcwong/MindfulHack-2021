@@ -2,7 +2,7 @@ import * as actions from "./actions";
 import store from "./store";
 
 const initialState = {
-  user: { name: null, uid: null, isNewUser: false, isPsych: null },
+  user: { name: null, uid: null, isNewUser: true, isPsych: null },
   fab: { show: false, page: null },
 };
 
@@ -54,6 +54,7 @@ export default (state = initialState, action: any) => {
           name: action.name,
           isPsych: action.isPsych,
           uid: action.uid ?? state.user.uid,
+          isNewUser: action.isNewUser,
         },
       };
     default:

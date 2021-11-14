@@ -12,8 +12,24 @@ import { Provider } from "react-redux";
 import store from "./state/store";
 import { getUserRecord } from "./services/firestore";
 // import { useNavigation } from "@react-navigation/native";
-
+import {
+  useFonts,
+  DMSans_400Regular,
+  DMSans_400Regular_Italic,
+  DMSans_500Medium,
+  DMSans_500Medium_Italic,
+  DMSans_700Bold,
+  DMSans_700Bold_Italic,
+} from "@expo-google-fonts/dm-sans";
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    DMSans_400Regular,
+    DMSans_400Regular_Italic,
+    DMSans_500Medium,
+    DMSans_500Medium_Italic,
+    DMSans_700Bold,
+    DMSans_700Bold_Italic,
+  });
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 

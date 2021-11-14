@@ -100,16 +100,13 @@ export default function LoginScreen({ navigation }) {
             variant="outline"
             // width="75%"
             style={{ marginTop: "2.5%" }}
-            startIcon={
-              <Icon as={MaterialCommunityIcons} name="google" size={5} />
-            }
           >
-            Login with Google
+            Login as Guest
           </Button>
         </VStack>
       </SafeAreaView>
       <ImageBackground
-        source={require("../assets/images/mindfulhack_login_bg.png")}
+        source={require("../assets/images/background_shape.png")}
         resizeMode="cover"
         style={styles.image}
       />
@@ -168,7 +165,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   button: {
-    backgroundColor: "#FEA2A2",
+    backgroundColor: "#00595E",
     // width: "100%",
     // textAlign: "left",
     borderRadius: 10,

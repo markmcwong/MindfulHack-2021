@@ -120,15 +120,12 @@ export default function LandingScreen({ navigation }) {
           width="75%"
           marginTop={6}
           onPress={() => loginWithGoogle()}
-          startIcon={
-            <Icon as={MaterialCommunityIcons} name="google" size={5} />
-          }
         >
-          Login with Google
+          Login as Guest
         </Button>
       </SafeAreaView>
       <ImageBackground
-        source={require("../assets/images/mindfulhack_login_bg.png")}
+        source={require("../assets/images/background_shape.png")}
         resizeMode="cover"
         style={styles.image}
       />
@@ -179,7 +176,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   button: {
-    backgroundColor: "#FEA2A2",
+    backgroundColor: "#00595E",
     width: "75%",
     borderRadius: 7.5,
     marginTop: 15,

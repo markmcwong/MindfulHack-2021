@@ -6,11 +6,9 @@ import NotFoundScreen from "../screens/NotFoundScreen";
 import BottomTabNavigator from "./BottomTabNavigator";
 import AuthStack from "./AuthNavigation";
 import { connect } from "react-redux";
-import DepositScreen from "../screens/DepositFormScreen";
-import DepositStack from "./DepositNavigator";
-import PersonDetail from "../screens/PersonDetail";
+import ProductDetail from "../screens/ProductDetail";
 import chatBox from "../screens/chatBox";
-import NewUserStack from "./newUserNavigator";
+import NewUserStack from "./NewUserNavigator";
 import JournalScreen from "../screens/JournalScreen";
 import JournalCraftingScreen from "../screens/JournalCraftingScreen";
 import LandingScreen from "../screens/LandingScreen";
@@ -54,91 +52,95 @@ const RootNavigator = (props: any) => {
             component={AuthStack}
           />
         </>
+      ) : props.user.isNewUser === true ? (
+        <Stack.Screen
+          options={{
+            header: () => null,
+            headerTitle: () => null,
+          }}
+          name="NewUser"
+          component={NewUserStack}
+        />
       ) : (
         // <Stack.Screen name="NoAuth" component={AuthStack} />
         // User is signed in
         <>
-          {props.user.isPsych ? (
-            // No token found, user isn't signed in
-            <Stack.Screen name="PsychStack" component={PsychStack} />
-          ) : (
-            <>
-              <Stack.Screen
-                options={{
-                  header: () => null,
-                  headerTitle: () => null,
-                }}
-                name="Auth"
-                component={BottomTabNavigator}
-              />
-              {/* <Stack.Screen name="NewJournal" component={ JournalScreen} /> */}
-              {/* <Stack.Screen name="Auth" component={BottomTabNavigator} /> */}
-              <Stack.Screen
-                options={{
-                  header: () => null,
-                  headerTitle: () => null,
-                }}
-                name="PersonDetailScreen"
-                component={PersonDetail}
-              />
-              <Stack.Screen
-                options={{
-                  header: () => null,
-                  headerTitle: () => null,
-                }}
-                name="NewJournal"
-                component={JournalCraftingScreen}
-              />
-              <Stack.Screen
-                options={{
-                  header: () => null,
-                  headerTitle: () => null,
-                }}
-                name="ViewJournal"
-                component={JournalViewScreen}
-              />
-              <Stack.Screen
-                options={{
-                  header: () => null,
-                  headerTitle: () => null,
-                }}
-                name="SleepStack"
-                component={SleepStack}
-              />
-              <Stack.Screen
-                options={{
-                  header: () => null,
-                  headerTitle: () => null,
-                }}
-                name="MoodStack"
-                component={MoodStack}
-              />
-              <Stack.Screen
-                options={{
-                  header: () => null,
-                  headerTitle: () => null,
-                }}
-                name="ChatStack"
-                component={ChatStack}
-              />
-              <Stack.Screen
-                options={{
-                  header: () => null,
-                  headerTitle: () => null,
-                }}
-                name="Profile"
-                component={ProfileScreen}
-              />
-              <Stack.Screen
-                options={{
-                  header: () => null,
-                  headerTitle: () => null,
-                }}
-                name="Conversation"
-                component={chatBox}
-              />
-            </>
-          )}
+          <>
+            <Stack.Screen
+              options={{
+                header: () => null,
+                headerTitle: () => null,
+              }}
+              name="Auth"
+              component={BottomTabNavigator}
+            />
+            {/* <Stack.Screen name="NewJournal" component={ JournalScreen} /> */}
+            {/* <Stack.Screen name="Auth" component={BottomTabNavigator} /> */}
+            <Stack.Screen
+              options={{
+                header: () => null,
+                headerTitle: () => null,
+              }}
+              name="PersonDetailScreen"
+              component={ProductDetail}
+            />
+            <Stack.Screen
+              options={{
+                header: () => null,
+                headerTitle: () => null,
+              }}
+              name="NewJournal"
+              component={JournalCraftingScreen}
+            />
+            <Stack.Screen
+              options={{
+                header: () => null,
+                headerTitle: () => null,
+              }}
+              name="ViewJournal"
+              component={JournalViewScreen}
+            />
+            <Stack.Screen
+              options={{
+                header: () => null,
+                headerTitle: () => null,
+              }}
+              name="SleepStack"
+              component={SleepStack}
+            />
+            <Stack.Screen
+              options={{
+                header: () => null,
+                headerTitle: () => null,
+              }}
+              name="MoodStack"
+              component={MoodStack}
+            />
+            <Stack.Screen
+              options={{
+                header: () => null,
+                headerTitle: () => null,
+              }}
+              name="ChatStack"
+              component={ChatStack}
+            />
+            <Stack.Screen
+              options={{
+                header: () => null,
+                headerTitle: () => null,
+              }}
+              name="Profile"
+              component={ProfileScreen}
+            />
+            <Stack.Screen
+              options={{
+                header: () => null,
+                headerTitle: () => null,
+              }}
+              name="Conversation"
+              component={chatBox}
+            />
+          </>
         </>
       )}
       <Stack.Screen
