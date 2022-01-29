@@ -1,5 +1,9 @@
 # MindfulHack-2021
 
+### Inspiration
+
+As we have seen different mental health issues, including insomnia, anxiety, having too much pressure, have been deteriorating these years along with the existence of COVID-19, we hope to provide an integrated platform, SciKick, for people to relieve themselves or seek help in diversified ways to prevent themselves going into the serious vicious cycle of worsening mental health.
+
 ### Steps to run our MindfulHack application:
 - clone our repo by `git clone https://github.com/markmcwong/MindfulHack-2021` to a folder you desired to store
 - `cd MindfulHack-2021` to navigate to the folder
